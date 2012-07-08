@@ -1,4 +1,10 @@
 FantasyFootball::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
+  devise_for :users
+  resources :users
+  
+
   get "pages/home"
 
   # The priority is based upon order of creation:
