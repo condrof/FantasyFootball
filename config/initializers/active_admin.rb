@@ -1,5 +1,10 @@
-ActiveAdmin.setup do |config|
+module ActiveAdmin
+  class BaseController
+    with_role :admin
+  end
+end
 
+ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -76,7 +81,7 @@ ActiveAdmin.setup do |config|
   # This setting changes the path where the link points to. If it's
   # a string, the strings is used as the path. If it's a Symbol, we
   # will call the method to return the path.
-  #
+  #b
   # Default:
   config.logout_link_path = :destroy_user_session_path
 
@@ -84,7 +89,7 @@ ActiveAdmin.setup do |config|
   # link. For example :get, :delete, :put, etc..
   #
   # Default:
-  # config.logout_link_method = :get
+   config.logout_link_method = :delete
 
 
   # == Admin Comments

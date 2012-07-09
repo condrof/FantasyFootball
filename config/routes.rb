@@ -2,7 +2,7 @@ FantasyFootball::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :users
+  resources :users, :teams
   
 
   get "pages/home"

@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :points, :teamname
+  
   belongs_to :user
 end

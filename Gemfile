@@ -9,10 +9,15 @@ gem 'pg'
 gem 'devise'
 gem 'heroku'
 gem 'rb-readline'
-gem 'rspec-rails'
-gem 'capybara'
 gem 'activeadmin'
-gem 'sass-rails',   '~> 3.2.3'
+gem 'sass-rails',   '~> 3.2.3'  #active admin hack for heroku. take out of assets
+
+gem "rspec-rails", :group => [:test, :development]
+group :test do
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

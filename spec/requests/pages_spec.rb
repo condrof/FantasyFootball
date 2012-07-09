@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Static pages" do
+describe "Pages" do
 
   describe "Home page" do
 
@@ -13,5 +13,16 @@ describe "Static pages" do
   it "should have the right title" do
     visit '/pages/home'
     page.should have_selector('title', :text => "Home")
+  end
+  
+  it "should access the users page" do
+    visit users_path
+    page.should have_content("Users")
+  end
+  
+  it "should show individual users page" do
+    user=FactoryGirl.create(:user)
+    visit user_path(user.id)
+    page.should have_content(user.email)
   end
 end
