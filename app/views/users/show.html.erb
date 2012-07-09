@@ -1,3 +1,10 @@
 <% provide(:title, @user.email ) %>
 <h1><%= @user.email %></h1>
 <p><%= @user.email %></p>
+<p>User has <%= @user.teams.count %> teams</p>
+<% if !@user.teams.nil? %>
+	<% @user.teams.each do |team| %>
+	<%= team.teamname %>
+	<%= link_to "delete", team, method: :delete, data: { confirm: "You sure?" }, title: team.teamname %>
+	<% end %>
+<% end %>

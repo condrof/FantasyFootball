@@ -22,7 +22,10 @@ describe "Pages" do
   
   it "should show individual users page" do
     user=FactoryGirl.create(:user)
+    t1=FactoryGirl.create(:team, user: user, teamname: "Foo") 
     visit user_path(user.id)
     page.should have_content(user.email)
+    page.should have_content(t1.teamname)
+    page.should have_content(user.teams.count)
   end
 end

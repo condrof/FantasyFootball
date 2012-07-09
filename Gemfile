@@ -11,6 +11,7 @@ gem 'heroku'
 gem 'rb-readline'
 gem 'activeadmin'
 gem 'sass-rails',   '~> 3.2.3'  #active admin hack for heroku. take out of assets
+gem 'bootstrap-sass', '2.0.0'
 
 gem "rspec-rails", :group => [:test, :development]
 group :test do

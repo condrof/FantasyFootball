@@ -16,9 +16,9 @@ describe "user sign in" do
     user = FactoryGirl.create(:user)
     visit new_user_session_path
     fill_in "Email",    :with => user.email
-    fill_in "Password", :with => user.email
+    fill_in "Password", :with => user.password
     click_button "Sign in"
-    page.should have_content("Signed in successfully.")
+    page.should have_content("Signed in successfully")
   end
 end
 
@@ -46,7 +46,6 @@ describe "user admin sign in" do
   it "should sign out successfully" do
     user = FactoryGirl.create(:user)
     visit new_user_session_path
-    visit new_user_session_path
     fill_in "Email",    :with => "foo@example.com"
     fill_in "Password", :with => "secret"
     click_button "Sign in" 
@@ -59,10 +58,22 @@ describe "user can create teams" do
   it "should allow users to create teams" do
     user=FactoryGirl.create(:user)
     visit new_user_session_path
-    fill_in "Email",    :with => "alindeman2@example.com"
-    fill_in "Password", :with => "ilovegrapes"
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
     click_button "Sign in"
     visit new_team_path
     page.should have_content("Create New Team")
+  end
+end
+
+describe "Create and delete teams" do
+  it "should destroy associated teams" do
+    user=FactoryGirl.create(:user)
+    FactoryGirl.create(:team, user_id: user.id)
+    teams = user.teams
+    user.destroy
+    teams.each do |team|
+      Team.find_by_id(team.id).should be_nil
+    end
   end
 end
