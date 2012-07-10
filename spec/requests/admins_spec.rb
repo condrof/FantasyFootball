@@ -40,5 +40,18 @@ describe "Admins" do
     click_button "Sign in" 
     visit updatePlayerPoints_admin_players_path
     page.should have_content("PLAYER POINTS SUCCESSFULLY UPDATED!")
+    player.points !=0
   end
+  
+  it "should zero player points" do
+    player=FactoryGirl.create(:player)
+    user=FactoryGirl.create(:user, :admin => "true")
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => "secret"
+    click_button "Sign in" 
+    visit zeroPlayerPoints_admin_players_path
+    page.should have_content("PLAYERS POINTS SET TO 0!")
+    player.points = 0
+   end
 end
