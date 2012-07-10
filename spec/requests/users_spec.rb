@@ -9,6 +9,33 @@ describe "user registration" do
     click_button "Sign up"
     page.should have_content("Welcome! You have signed up successfully.")
   end
+  
+  it "allows users to edit their information" do
+    user = FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in"
+    visit edit_user_registration_path
+    fill_in "Email", :with => "newemail@example.com"
+    fill_in "Current password", :with => user.password
+    click_button "Update"
+    page.should have_content("You updated your account successfully.")
+    user.email = "newemail@example.com"
+  end
+  
+  it "should not allows users to edit information with incorrect password" do
+    user = FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in"
+    visit edit_user_registration_path
+    fill_in "Email", :with => "newemail@example.com"
+    fill_in "Current password", :with => "wrong password"
+    click_button "Update"
+    page.should have_content("Current password is invalid")
+  end
 end
   
 describe "user sign in" do
