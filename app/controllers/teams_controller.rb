@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
   
   def index
     @teams = current_user.teams
-    @team = current_user.teams.build(params[:team])
+    @team = current_user.teams.build
   end
   
   def create

@@ -4,7 +4,7 @@
 <p>User has <%= @user.teams.count %> teams</p>
 <% if !@user.teams.nil? %>
 	<% @user.teams.each do |team| %>
-	<%= team.teamname %>
-	<%= link_to "delete", team, method: :delete, data: { confirm: "You sure?" }, title: team.teamname %>
+	<%= team.teamname %> |
+	<%= link_to "delete", team, method: :delete, data: { confirm: "You sure?" }, title: team.teamname %><br />
 	<% end %>
 <% end %>

@@ -1,12 +1,20 @@
-FactoryGirl.define do |f|
+FactoryGirl.define do
+  sequence(:email) { |n| "foo#{n}@example.com" }
+
   factory :user do
-    id 2
-    email "foo@example.com"
+    email
     password "secret"
+    password_confirmation "secret"
   end
   
   factory :team do
     teamname "My team"
     user
   end 
+  
+  factory :player do
+    name "Playername"
+    club "club"
+    goals "3"
+  end
 end

@@ -23,31 +23,12 @@ describe "user sign in" do
 end
 
 describe "user admin sign in" do 
-  it "should not allow users to access admin path if non admin" do
-    user = FactoryGirl.create(:user, :admin => "false")
-    visit new_user_session_path
-    fill_in "Email",    :with => "foo@example.com"
-    fill_in "Password", :with => "secret"
-    click_button "Sign in"  
-    visit "/admin"
-    page.should have_content("This area is restricted to administrators only.")
-  end
-  
-  it "should allow admin users access dashboard" do
-    user=FactoryGirl.create(:user, :admin => "true")
-    visit new_user_session_path
-    fill_in "Email",    :with => "foo@example.com"
-    fill_in "Password", :with => "secret"
-    click_button "Sign in"  
-    visit "/admin"
-    page.should have_selector('h2', :text => 'Dashboard')
-  end
   
   it "should sign out successfully" do
     user = FactoryGirl.create(:user)
     visit new_user_session_path
-    fill_in "Email",    :with => "foo@example.com"
-    fill_in "Password", :with => "secret"
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
     click_button "Sign in" 
     visit destroy_user_session_path
     page.should have_content("Signed out successfully.")
@@ -61,8 +42,10 @@ describe "user can create teams" do
     fill_in "Email",    :with => user.email
     fill_in "Password", :with => user.password
     click_button "Sign in"
-    visit new_team_path
-    page.should have_content("Create New Team")
+    visit teams_path
+    fill_in "Teamname", :with => "New Team"
+    click_button "Create"
+    page.should have_content(user.teams.last.teamname)
   end
 end
 

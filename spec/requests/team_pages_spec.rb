@@ -12,7 +12,8 @@ describe "TeamPages" do
     }
 
   describe "team creation" do
-    before { visit new_team_path }
+    before { visit user_path
+       }
 
     describe "with invalid information" do
       it "should not create a team" do

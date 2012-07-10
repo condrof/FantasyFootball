@@ -4,7 +4,7 @@ ActiveAdmin.register User do
   member_action :set_admin, :method => :get do
     user = User.find(params[:id])
     user.toggle!(:admin)
-    redirect_to admin_users_path, :notice => "User admin status set to #{user.admin}!"
+    redirect_to admin_users_path, :notice => "#{user.email} admin status set to #{user.admin}!"
   end
 
   index do
@@ -15,7 +15,7 @@ ActiveAdmin.register User do
     column :last_sign_in_ip
     column :created_at
     column "Toggle Admin", :id do |id|
-      link_to "Make Admin", set_admin_admin_user_path(id)
+      link_to "Make Admin", set_admin_admin_user_path(id), data: { confirm: "You sure?" }
     end
     default_actions
   end

@@ -10,4 +10,12 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   has_many :teams, :dependent => :destroy
+  
+  after_initialize :default_values
+
+  private
+    def default_values
+      self.admin ||= "false"
+    end
+
 end
