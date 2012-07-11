@@ -2,7 +2,6 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
   
   def show
-    @team=Team.find(params[:id])
   end
   
   def new

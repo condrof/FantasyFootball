@@ -8,12 +8,12 @@ FactoryGirl.define do
   end
   
   factory :team do
-    teamname "My team"
+    teamname Faker::Name.name
     user
   end 
   
   factory :player do
-    name "Playername"
+    name Faker::Name.name
     club "club"
     goals "3"
   end

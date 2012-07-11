@@ -2,9 +2,8 @@ FantasyFootball::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :users, :teams, :players
+  resources :users, :teams, :players, :pages
   
-  break if ARGV.join.include? 'assets:precompile'
   get "pages/home"
 
   # The priority is based upon order of creation:

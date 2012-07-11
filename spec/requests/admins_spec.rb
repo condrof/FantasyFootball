@@ -54,4 +54,44 @@ describe "Admins" do
     page.should have_content("PLAYERS POINTS SET TO 0!")
     player.points = 0
    end
+   
+   it "should allow admin user to read all teams" do
+    user=FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in" 
+    visit new_team_path
+    fill_in 'Teamname', with: "Lorem ipsum"
+    click_button "Create" 
+    visit destroy_user_session_path
+    user2=FactoryGirl.create(:user, :admin => "true")
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in"     
+    visit team_path(user.teams.first)
+    page.should have_content(user.teams.first.teamname)
+   end
+   
+   it "should allow admin user to delete all teams" do
+    user=FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in" 
+    visit new_team_path
+    fill_in 'Teamname', with: "Lorem ipsum"
+    click_button "Create" 
+    visit destroy_user_session_path
+    user2=FactoryGirl.create(:user, :admin => "true")
+    visit new_user_session_path
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in" 
+    visit user_path(user)
+    expect {
+      click_link "Delete"
+    }.to change{Team.count}.by(-1)      
+   end
 end
