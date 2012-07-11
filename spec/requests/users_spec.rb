@@ -69,7 +69,7 @@ describe "user can create teams" do
     fill_in "Email",    :with => user.email
     fill_in "Password", :with => user.password
     click_button "Sign in"
-    visit teams_path
+    visit new_team_path
     fill_in "Teamname", :with => "New Team"
     click_button "Create"
     page.should have_content(user.teams.last.teamname)
