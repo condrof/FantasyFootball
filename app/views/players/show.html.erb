@@ -1,4 +1,4 @@
 <% provide(:title, @player.name ) %>
 <h1><%= @player.name %></h1>
-<p><%= "#{@player.name} | #{@player.club} | #{@player.points}" %> </p>
+<p><%= "#{@player.name} | #{@player.club} | #{@player.points} | Is in #{@player.teams.count} teams" %> </p>
 

@@ -3,24 +3,29 @@ class TeamsController < ApplicationController
     @team=Team.find(params[:id])
   end
   
-  def index
-    @teams = current_user.teams
-    @team = current_user.teams.build
+  def new
+    if signed_in?
+      @team = current_user.teams.build
+    else
+      flash[:alert] = "You must be signed in to continue"
+      redirect_to root_path
+    end
   end
   
   def create
     @team = current_user.teams.build(params[:team])
     if @team.save
-      flash[:success] = "Team created!"
-      redirect_to user_path(@team.user_id)
+      flash[:alert] = "Team created!"
+      redirect_to user_path(@team.user)
     else
-      redirect_to user_path(current_user)
+      redirect_to users_path
     end
   end
   
   def destroy
     @team=Team.find(params[:id])
     @team.destroy
+    flash[:alert] = "Team deleted!"
     redirect_to user_path(current_user)
   end
 end
