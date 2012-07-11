@@ -9,7 +9,7 @@ gem 'pg'
 gem 'devise'
 gem 'heroku'
 gem 'rb-readline'
-gem 'activeadmin'
+gem 'active_admin', :git => 'https://github.com/gregbell/active_admin.git'
 gem 'sass-rails',   '~> 3.2.3'  #active admin hack for heroku. take out of assets
 gem 'bootstrap-sass', '2.0.0'
 gem 'faker'
