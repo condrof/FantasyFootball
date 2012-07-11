@@ -8,7 +8,6 @@ ActiveAdmin.register User do
   end
 
   index do
-    column :id
     column :email
     column :admin
     column :last_sign_in_at

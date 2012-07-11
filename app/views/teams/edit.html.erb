@@ -1,0 +1,43 @@
+<h1><%= @team.teamname %></h1>
+
+<% @team.team_players.each do |teamplayer| %>
+	<% if !teamplayer.player %>
+		<%= teamplayer.player %> | <%= link_to "Delete", teamplayer, method: :delete, :confirm => "Are you sure?"  %>
+	<% end %>
+<% end %>
+
+<%= form_tag players_path, :method => 'get', :id => "players_search" do %>
+  <p>
+  	<%= hidden_field_tag :direction, params[:direction] %>
+	<%= hidden_field_tag :sort, params[:sort] %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<%= paginate @players %>
+<table id="players" class="datatable" >
+  <thead>
+	<tr>
+		<th>Name</th>
+		<th>Club</th>
+		<th>Points</th>
+		<th></th>
+	</tr>
+  </thead>
+  <tbody>
+	<% @players.each do |player| %>
+		<tr>
+			<td><%= link_to player.name, player_path(player) %></td>
+			<td><%= "#{player.club}" %></td>
+			<td><%= "#{player.points}" %></td>
+			<td><%= form_for(@relationship) do |f| %>
+  				<div><%= f.hidden_field :player_id, :value => player.id %>
+  				<%= f.hidden_field :team_id, :value => @team.id %></div>
+  				<%= f.submit "Add To Team", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+  </tbody>
+</table>

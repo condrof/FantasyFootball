@@ -17,10 +17,15 @@ class TeamsController < ApplicationController
     @team = current_user.teams.build(params[:team])
     if @team.save
       flash[:alert] = "Team created!"
-      redirect_to user_path(@team.user)
+      redirect_to edit_team_path(@team)
     else
       redirect_to users_path
     end
+  end
+  
+  def edit
+    @players = Player.search(params[:search]).page(params[:page]).per(10)
+    @relationship = @team.team_players.build
   end
   
   def destroy
