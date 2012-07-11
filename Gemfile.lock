@@ -244,6 +244,7 @@ DEPENDENCIES
   guard-rspec
   heroku
   jquery-rails
+  kaminari
   pg
   rails (= 3.2.6)
   rb-readline

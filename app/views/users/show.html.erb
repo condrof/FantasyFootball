@@ -4,9 +4,9 @@
 <p>User has <%= @user.teams.count %> teams</p>
 <% if !@user.teams.nil? %>
 	<% @user.teams.each do |team| %>
-		<%= link_to team.teamname, team_path(team) %> |
+		<%= link_to team.teamname, team_path(team) %>
 		<% if can? :update, team %>
-			<%= link_to "Delete", team, method: :delete %><br />
-		<% end %>
+			| <%= link_to "Delete", team, method: :delete, :confirm => "Are you sure?"  %>
+		<% end %><br />
 	<% end %>
 <% end %>

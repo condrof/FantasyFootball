@@ -1,5 +1,32 @@
 <% provide(:title, "All Players") %>
 <h1>All Players</h1>
-<% @players.each do |player| %>
-	<p><%= link_to player.name, player_path(player) %> | <%= "#{player.club} | #{player.points}" %> </p>
+
+<%= form_tag players_path, :method => 'get', :id => "players_search" do %>
+  <p>
+  	<%= hidden_field_tag :direction, params[:direction] %>
+	<%= hidden_field_tag :sort, params[:sort] %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
 <% end %>
+
+<%= paginate @players %>
+<table id="players" class="datatable" >
+  <thead>
+	<tr>
+		<th>Name</th>
+		<th>Club</th>
+		<th>Points</th>
+	</tr>
+  </thead>
+  <tbody>
+	<% @players.each do |player| %>
+		<tr>
+			<td><%= link_to player.name, player_path(player) %></td>
+			<td><%= "#{player.club}" %></td>
+			<td><%= "#{player.points}" %></td>
+		</tr>
+	<% end %>
+  </tbody>
+</table>
+

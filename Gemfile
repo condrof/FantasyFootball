@@ -15,6 +15,9 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'faker'
 gem 'thin'  #heroku server
 gem 'cancan'
+gem 'kaminari'
+gem 'jquery-rails'
+
 
 gem "rspec-rails", :group => [:test, :development]
 group :test do
