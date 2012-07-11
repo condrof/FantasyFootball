@@ -1,6 +1,4 @@
-class PagesController < ApplicationController
-  load_and_authorize_resource
-  
+class PagesController < ApplicationController  
   def home
   end
 end

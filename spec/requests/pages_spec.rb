@@ -11,7 +11,7 @@ describe "Pages" do
   end
   
   it "should have the right title" do
-    page.should have_selector('title', :text => "Home")
+    page.should have_selector('title', :text => "Fantasy Football | Home")
   end
   
   it "should access the users page" do
