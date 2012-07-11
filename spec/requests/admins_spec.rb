@@ -67,8 +67,8 @@ describe "Admins" do
     visit destroy_user_session_path
     user2=FactoryGirl.create(:user, :admin => "true")
     visit new_user_session_path
-    fill_in "Email",    :with => user.email
-    fill_in "Password", :with => user.password
+    fill_in "Email",    :with => user2.email
+    fill_in "Password", :with => user2.password
     click_button "Sign in"     
     visit team_path(user.teams.first)
     page.should have_content(user.teams.first.teamname)
@@ -86,8 +86,8 @@ describe "Admins" do
     visit destroy_user_session_path
     user2=FactoryGirl.create(:user, :admin => "true")
     visit new_user_session_path
-    fill_in "Email",    :with => user.email
-    fill_in "Password", :with => user.password
+    fill_in "Email",    :with => user2.email
+    fill_in "Password", :with => user2.password
     click_button "Sign in" 
     visit user_path(user)
     expect {

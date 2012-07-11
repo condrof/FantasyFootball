@@ -10,10 +10,6 @@ describe "Pages" do
     end
   end
   
-  it "should have the right title" do
-    page.should have_selector('title', :text => "Fantasy Football | Home")
-  end
-  
   it "should access the users page" do
     visit users_path
     page.should have_content("Users")
