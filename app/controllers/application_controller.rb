@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  #check_authorization
   
+  rescue_from CanCan::AccessDenied do |exception|
+  flash[:alert] = "Access denied."
+    redirect_to root_path
+  end
+
   def authenticate_admin_user!
     authenticate_user!
     unless current_user.admin?

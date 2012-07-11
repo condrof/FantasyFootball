@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  load_and_authorize_resource
+  
   def show
     @team=Team.find(params[:id])
   end
@@ -7,7 +9,7 @@ class TeamsController < ApplicationController
     if signed_in?
       @team = current_user.teams.build
     else
-      flash[:alert] = "You must be signed in to continue"
+      flash[:notice] = "You must be signed in to continue"
       redirect_to root_path
     end
   end
@@ -23,7 +25,6 @@ class TeamsController < ApplicationController
   end
   
   def destroy
-    @team=Team.find(params[:id])
     @team.destroy
     flash[:alert] = "Team deleted!"
     redirect_to user_path(current_user)
