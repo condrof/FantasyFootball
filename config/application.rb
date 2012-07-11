@@ -12,8 +12,7 @@ end
 module FantasyFootball
   class Application < Rails::Application
     
-    # Heroku requires this to be false
-    config.assets.initialize_on_precompile=false
+    config.assets.precompile += %w(active_admin.css active_admin.js)
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
