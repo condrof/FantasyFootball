@@ -1,9 +1,8 @@
 <h1><%= @team.teamname %></h1>
 
-<% @team.team_players.each do |teamplayer| %>
-	<% if !teamplayer.player %>
-		<%= teamplayer.player %> | <%= link_to "Delete", teamplayer, method: :delete, :confirm => "Are you sure?"  %>
-	<% end %>
+<% @team.players.each do |player| %>
+	<% @team_player= TeamPlayer.find_by_player_id_and_team_id(player.id, @team.id) %>
+	<%= player.name %> | <%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?"  %>
 <% end %>
 
 <%= form_tag players_path, :method => 'get', :id => "players_search" do %>
