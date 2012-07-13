@@ -2,7 +2,7 @@
 
 <% @team.players.each do |player| %>
 	<% @team_player= TeamPlayer.find_by_player_id_and_team_id(player.id, @team.id) %>
-	<%= player.name %> | <%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?"  %>
+	<%= player.name %> | <%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?"  %><br />
 <% end %>
 
 <%= form_tag players_path, :method => 'get', :id => "players_search" do %>

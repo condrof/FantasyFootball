@@ -1,5 +1,9 @@
 <% provide(:title, "Team") %>
 <h1><%= @team.teamname %></h1>
 
+<% @team.players.each do |player| %>
+	<%= "#{player.name} | #{player.club} | #{player.points}" %>
+<% end %>
+
 
 

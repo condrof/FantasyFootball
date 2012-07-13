@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710222825) do
+ActiveRecord::Schema.define(:version => 20120713151751) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20120710222825) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "team_players", ["player_id", "team_id"], :name => "index_team_players_on_player_id_and_team_id", :unique => true
 
   create_table "teams", :force => true do |t|
     t.string   "teamname"

@@ -8,7 +8,7 @@ ActiveAdmin.register User do
   end
 
   index do
-    column :email
+    column :email do |user| link_to user.email, user_path(user) end
     column :admin
     column :last_sign_in_at
     column :last_sign_in_ip
