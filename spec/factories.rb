@@ -1,10 +1,14 @@
 FactoryGirl.define do
   sequence(:email) { |n| "foo#{n}@example.com" }
+  sequence(:username) { |n| "user#{n}"}
+  sequence(:name) { |n| "name#{n}"}
 
   factory :user do
+    username
     email
     password "secret"
     password_confirmation "secret"
+    moderator "false"
   end
   
   factory :team do
@@ -13,7 +17,7 @@ FactoryGirl.define do
   end 
   
   factory :player do
-    name Faker::Name.name
+    name
     club "club"
     goals "3"
   end

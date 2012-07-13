@@ -3,8 +3,13 @@ class ApplicationController < ActionController::Base
   #check_authorization
   
   rescue_from CanCan::AccessDenied do |exception|
-  flash[:alert] = "Access denied."
-    redirect_to root_path
+    if user_signed_in?
+      flash[:alert] = "You do not have sufficient privilages for this action."
+      redirect_to root_path
+    else
+      flash[:alert] = "Access denied."
+      redirect_to root_path
+    end
   end
 
   def authenticate_admin_user!

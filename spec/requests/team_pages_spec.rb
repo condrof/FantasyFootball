@@ -55,7 +55,7 @@ describe "TeamPages" do
         fill_in "Password", :with => user2.password
         click_button "Sign in" 
         visit team_path(user.teams.first)
-        page.should have_content("Access denied.")
+        page.should have_content("You do not have sufficient privilages for this action")
       end
     end
   end

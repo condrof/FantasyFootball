@@ -17,6 +17,9 @@ gem 'thin'  #heroku server
 gem 'cancan'
 gem 'kaminari'
 gem 'jquery-rails'
+gem 'forum_monster'
+gem 'bb-ruby'
+gem 'gravtastic'
 
 
 gem "rspec-rails", :group => [:test, :development]

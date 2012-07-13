@@ -19,6 +19,7 @@
               <li><%= link_to "Home", root_path %></li>
               <li><%= link_to "Users", users_path  %></li>
               <li><%= link_to "Players", players_path  %></li>
+              <li><%= link_to "Forums", forums_path %></li>
               <% if user_signed_in? %>
               	<li><%= link_to "New Team", new_team_path %></li>
               	<li><%= link_to "My Profile", user_path(current_user) %></li>
