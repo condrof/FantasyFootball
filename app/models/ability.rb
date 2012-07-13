@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-       user ||= User.new # guest user (not logged in)
+     if user
        if user.admin?
          can :manage, :all
        else
@@ -20,18 +20,21 @@ class Ability
              teamplayer.team.user == user
            end
            
-           if !user.moderator?
-             can [:create, :update, :destroy], Post do |post|
+           if user.moderator?
+             can [:create, :update, :destroy], Post
+             can [:create, :update, :destroy], Topic
+           else
+               can [:create, :update, :destroy], Post do |post|
                post.user_id == user.id
              end
              can [:create], Topic
-           else
-             can [:create, :update, :destroy], Post
-             can [:create, :update, :destroy], Topic
            end
          end
+       end
+     else
           can :read, [Player, User, Category, Forum, Post, Topic]
        end
+     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -46,5 +49,4 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-  end
 end

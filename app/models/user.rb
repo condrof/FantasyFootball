@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   private
     def default_values
       self.admin ||= "false"
-      self.moderator ||= "false"
+      #self.moderator ||= "false"
     end
 
 end
