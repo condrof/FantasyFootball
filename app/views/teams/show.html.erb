@@ -1,8 +1,10 @@
 <% provide(:title, "Team") %>
 <h1><%= @team.teamname %></h1>
 
+<p><%= "#{@team.league.name} | #{@team.points} points" %></p>
+
 <% @team.players.each do |player| %>
-	<%= "#{player.name} | #{player.club} | #{player.points}" %>
+	<%= "#{player.name} | #{player.club} | #{player.points}" %><br />
 <% end %>
 
 

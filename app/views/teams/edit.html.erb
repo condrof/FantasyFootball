@@ -5,6 +5,13 @@
 	<%= player.name %> | <%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?"  %><br />
 <% end %>
 
+<% if @team.league_id.nil? %>
+	<%= form_for @team do |t| %>
+	<%= t.hidden_field :league_id, :value => 1 %>
+	<%= t.submit "Add team to Main League" %>
+	<% end %>
+<% end %>
+
 <%= form_tag players_path, :method => 'get', :id => "players_search" do %>
   <p>
   	<%= hidden_field_tag :direction, params[:direction] %>

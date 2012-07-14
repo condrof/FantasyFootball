@@ -42,7 +42,7 @@ ActiveAdmin.register Player do
         redirect_to admin_players_path, :notice => "PLAYERS SUCCESSFULLY CREATED!"
   end
   
-    index do
+  index do
     column :name
     column :club
     column :position

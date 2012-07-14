@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120714104432) do
+ActiveRecord::Schema.define(:version => 20120714215548) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -46,6 +46,12 @@ ActiveRecord::Schema.define(:version => 20120714104432) do
     t.integer  "category_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "leagues", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "message_copies", :force => true do |t|
@@ -109,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20120714104432) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "league_id"
   end
 
   create_table "topics", :force => true do |t|

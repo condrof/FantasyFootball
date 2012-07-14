@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :topics, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   
-  validates :username, :uniqueness => true
+  validates :username, :uniqueness => true, :presence => true
   
   after_initialize :default_values
 

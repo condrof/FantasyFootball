@@ -1,4 +1,10 @@
 FantasyFootball::Application.routes.draw do
+  get "leagues/index"
+
+  get "leagues/show"
+
+  get "leagues/new"
+
   resources :categories, :except => [:index, :show]
   resources :forums, :except => :index do
     resources :topics, :shallow => true, :except => :index do
@@ -10,7 +16,7 @@ FantasyFootball::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :users, :teams, :players, :pages, :team_players
+  resources :users, :teams, :players, :pages, :team_players, :leagues
   mailboxes_for :users, :user_object_name => "current_user", :user_display_attribute => "username"
   
   get "pages/home"

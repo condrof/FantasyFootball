@@ -125,7 +125,6 @@ describe "Users can add and remove players to the team" do
   it "should not allow the same player on the team twice" do
     player=FactoryGirl.create(:player)
     user=FactoryGirl.create(:user)
-    puts "#{user.id} | #{player.id}|"
     visit new_user_session_path
     fill_in "Email",    :with => user.email
     fill_in "Password", :with => user.password
@@ -139,4 +138,33 @@ describe "Users can add and remove players to the team" do
     #page.should have_content("ERROR: Player is already on your team")
     TeamPlayer.count.should eql(1) 
   end
+  
+  it "should allow private messages between users" do
+    user1=FactoryGirl.create(:user)
+    user2=FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in "Email",    :with => user1.email
+    fill_in "Password", :with => user1.password
+    click_button "Sign in"
+    visit user_path(user2)
+    click_link "Send Message to User"
+    fill_in "Subject", :with => "hello"
+    fill_in "Message", :with => "hello"
+    click_button "Send"
+    user2.inbox.count.should eql(1)
+    user1.outbox.count.should eql(1)
+  end
+  
+  it "should allow users to read their messages" do
+    user1=FactoryGirl.create(:user)
+    user2=FactoryGirl.create(:user)
+    user2.send_message("Hi Subject","Hi Body !!!",user1)
+    visit new_user_session_path
+    fill_in "Email",    :with => user1.email
+    fill_in "Password", :with => user1.password
+    click_button "Sign in"
+    visit mailboxes_path
+    click_link "Hi Subject" #as defined above
+    page.should have_content("Hi Body !!!")
+  end  
 end

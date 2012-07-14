@@ -19,13 +19,21 @@ class TeamsController < ApplicationController
       flash[:alert] = "Team created!"
       redirect_to edit_team_path(@team)
     else
-      redirect_to users_path
+      flash[:alert] = "Team Name already taken"
+      redirect_to new_team_path
     end
   end
   
   def edit
     @players = Player.search(params[:search]).page(params[:page]).per(10)
     @relationship = @team.team_players.build
+  end
+
+  def update
+    if @team.update_attributes(params[:team])
+      flash[:notice] = "Team was successfully updated."
+      redirect_to edit_team_path(@team)
+    end
   end
   
   def destroy

@@ -21,4 +21,31 @@ FactoryGirl.define do
     club "club"
     goals "3"
   end
+  
+  factory :category do
+    id 100
+    title "Category"
+  end
+  
+  factory :forum do
+    title "New Forum"
+    description "desc"
+    id 100
+    category_id 100
+  end
+  
+  factory :topic do
+    id 100
+    title "topic"
+    body "post"
+    forum_id 100
+    user
+  end
+  
+  factory :post do
+    body "New post"
+    forum_id 100
+    topic_id 100
+    user
+  end
 end

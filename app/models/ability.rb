@@ -10,6 +10,7 @@ class Ability
        else 
          can :create, Team
          can :create, Post
+         can [:create], League
          can [:read, :update, :destroy], Team do |team|
            team.try(:user_id) == user.id
          end
@@ -31,7 +32,7 @@ class Ability
          end
          
        end
-       can :read, [Player, User, Category, Forum, Post, Topic]
+       can :read, [Player, User, Category, Forum, Post, Topic, League]
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

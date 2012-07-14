@@ -1,7 +1,7 @@
 <% provide(:title, @user.email ) %>
 <h1><%= @user.username %></h1>
 <p><%= @user.email %></p>
-<% if current_user %>
+<% if current_user && !current_user.eql?(@user) %>
 	<p><%= link_to "Send Message to User", new_mailboxes_path(:user_id => @user.id)  %></p>
 <% end %>
 <p>User has <%= @user.teams.count %> teams</p>
