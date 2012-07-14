@@ -20,6 +20,7 @@ gem 'jquery-rails'
 gem 'forum_monster'
 gem 'bb-ruby'
 gem 'gravtastic'
+gem 'redcarpet'
 
 
 gem "rspec-rails", :group => [:test, :development]

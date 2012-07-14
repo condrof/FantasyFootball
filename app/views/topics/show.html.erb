@@ -20,7 +20,7 @@
       <% @topic.posts.each do |post| %>
       <tr>
         <td class="post_author" rowspan="2">
-          <span class="name"><%= post.user.username %></span>
+          <span class="name">&nbsp&nbsp<%= link_to post.user.username, user_path(post.user) %></span>
           <span class="avatar"><!-- This space reserved for Avatar --></span>
           <span class="info smaller">
             Posts <%= post.user.posts.size %><br />
@@ -45,10 +45,13 @@
       </tr>
       <tr>
         <td class="post_body">
-          <%= post.body %>
+          <%= post.body.bbcode_to_html().html_safe %>
         </td>
       </tr>
       <% end %>
     </table>
   </div>
 </div>
+    <% if can? :create, Post %>
+    	<%= link_to "Add to topic", new_topic_post_path(@topic), :class => "reply_button round" %>
+ 	<% end %>

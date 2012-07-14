@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     if params[:quote]
       quote_post = Post.find(params[:quote])
       if quote_post
-        @post.body = quote_post.body
+        @post.body = "[quote=\"#{quote_post.user.username}\"] #{quote_post.body}" + '[/quote]'
       end
     end
   end

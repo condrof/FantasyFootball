@@ -55,3 +55,17 @@ blockquote {
   margin: 10px 0px 0px 25px;
   padding: 10px;
  }
+ 
+/* Reply to topic button
+----------------------------------------------------------------------------------------------------*/
+a.reply_button {
+  margin-left: 10px;
+  display: block;
+  text-align: center;
+  width: 140px;
+  color: #fffffff;
+  background: #000000;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
+}
