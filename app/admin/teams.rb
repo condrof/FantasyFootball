@@ -3,7 +3,7 @@ ActiveAdmin.register Team do
     
   index do
     column :teamname do |team| link_to team.teamname, team_path(team) end
-    column :user
+    column :user do |team| link_to team.user.username, user_path(team.user) end
     column :points
     
     default_actions

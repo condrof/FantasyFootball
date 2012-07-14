@@ -36,7 +36,7 @@ describe "TeamPages" do
     describe "with invalid information" do
       it "should not create a team" do
           visit new_team_path
-          page.should have_content("You must be signed in to continue")          
+          page.should have_content("Access denied")          
       end
       
       it "should not show another users teams" do

@@ -22,6 +22,9 @@
         <td class="post_author" rowspan="2">
           <span class="name">&nbsp&nbsp<%= link_to post.user.username, user_path(post.user) %></span>
           <span class="avatar"><!-- This space reserved for Avatar --></span>
+          <% if current_user %>
+          	<span><%= link_to "Send Message to User", new_mailboxes_path(:user_id => post.user.id)  %></span>
+          <% end %>
           <span class="info smaller">
             Posts <%= post.user.posts.size %><br />
             Registered <%= post.user.created_at.to_s(:joined) %><br />

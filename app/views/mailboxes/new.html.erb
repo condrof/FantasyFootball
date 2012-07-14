@@ -1,0 +1,25 @@
+<h2>Mailbox</h2>
+
+<%= render "head" %>
+
+<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+     
+	<%= render :partial => "tabs_panel" %>
+	
+    <div id="tabs-messages" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+    	<%= form_tag create_mailboxes_path, :method => :post do %>
+			  	<%= hidden_field_tag :user_tokens, User.find(params[:user_id]).id %>
+			<p>
+			    <%= label_tag :subject, "Subject :" %>
+				<%= text_field_tag :subject, "", :class => "text medium" %>
+			</p>
+			<p>
+			    <%= label_tag :body, "Messages :" %>
+				<%= text_area_tag :body, "", :class => "medium" %>
+			</p>
+			<p>
+				<%= submit_tag "Send", :class => "submit" %>
+			</p>
+		<% end %>
+    </div>    
+</div>

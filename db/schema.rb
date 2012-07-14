@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713174613) do
+ActiveRecord::Schema.define(:version => 20120714104432) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -47,6 +47,32 @@ ActiveRecord::Schema.define(:version => 20120713174613) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
+
+  create_table "message_copies", :force => true do |t|
+    t.integer  "sent_messageable_id"
+    t.string   "sent_messageable_type"
+    t.integer  "recipient_id"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "message_copies", ["sent_messageable_id", "recipient_id"], :name => "outbox_idx"
+
+  create_table "messages", :force => true do |t|
+    t.integer  "received_messageable_id"
+    t.string   "received_messageable_type"
+    t.integer  "sender_id"
+    t.string   "subject"
+    t.text     "body"
+    t.boolean  "opened",                    :default => false
+    t.boolean  "deleted",                   :default => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
+
+  add_index "messages", ["received_messageable_id", "sender_id"], :name => "inbox_idx"
 
   create_table "players", :force => true do |t|
     t.string   "name"

@@ -21,6 +21,8 @@ gem 'forum_monster'
 gem 'bb-ruby'
 gem 'gravtastic'
 gem 'redcarpet'
+gem "has_mailbox"
+gem 'will_paginate'
 
 
 gem "rspec-rails", :group => [:test, :development]

@@ -6,11 +6,12 @@ FantasyFootball::Application.routes.draw do
     end
     root :to => 'categories#index', :via => :get
   end
-
+  
   ActiveAdmin.routes(self)
 
   devise_for :users
   resources :users, :teams, :players, :pages, :team_players
+  mailboxes_for :users, :user_object_name => "current_user", :user_display_attribute => "username"
   
   get "pages/home"
 
