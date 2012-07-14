@@ -9,6 +9,7 @@ class Ability
          can :manage, :all
        else 
          can :create, Team
+         can :create, Post
          can [:read, :update, :destroy], Team do |team|
            team.try(:user_id) == user.id
          end
@@ -18,7 +19,7 @@ class Ability
          can [:create, :destroy], TeamPlayer do |teamplayer|
            teamplayer.team.user == user
          end
-         can [:create, :update, :destroy], Post do |post|
+         can [:update, :destroy], Post do |post|
            post.user_id == user.id
          end
          can [:create], Topic
