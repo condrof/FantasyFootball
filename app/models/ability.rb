@@ -7,33 +7,30 @@ class Ability
      if user
        if user.admin?
          can :manage, :all
-       else
-         if !user.admin?
-           can :create, Team
-           can [:read, :update, :destroy], Team do |team|
-             team.try(:user_id) == user.id
-           end
-           can [:update, :destroy], User do |tryuser|
-             tryuser == user
-           end
-           can [:create, :destroy], TeamPlayer do |teamplayer|
-             teamplayer.team.user == user
-           end
-           
-           if user.moderator?
-             can [:create, :update, :destroy], Post
-             can [:create, :update, :destroy], Topic
-           else
-               can [:create, :update, :destroy], Post do |post|
-               post.user_id == user.id
-             end
-             can [:create], Topic
-           end
+       else 
+         can :create, Team
+         can [:read, :update, :destroy], Team do |team|
+           team.try(:user_id) == user.id
          end
+         can [:update, :destroy], User do |tryuser|
+           tryuser == user
+         end
+         can [:create, :destroy], TeamPlayer do |teamplayer|
+           teamplayer.team.user == user
+         end
+         can [:create, :update, :destroy], Post do |post|
+           post.user_id == user.id
+         end
+         can [:create], Topic
+         end
+         
+         if user.moderator?
+           can [:create, :update, :destroy], Post
+           can [:create, :update, :destroy], Topic
+         end
+         
        end
-     else
-          can :read, [Player, User, Category, Forum, Post, Topic]
-       end
+       can :read, [Player, User, Category, Forum, Post, Topic]
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
