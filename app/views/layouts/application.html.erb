@@ -24,7 +24,7 @@
               <% if user_signed_in? %>
               	<li><%= link_to "New Team", new_team_path %></li>
               	<li><%= link_to "My Profile", user_path(current_user) %></li>
-              	<li><%= link_to "Messages(#{current_user.inbox.count})", mailboxes_path %></li>
+              	<li><%= link_to "Messages(#{@count})", mailboxes_path %></li>
               	<li><%= link_to "Settings", edit_user_registration_path %></li>
               	<li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
               <% if current_user.admin %>

@@ -6,6 +6,7 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    @teams=@league.teams.sort! { |a,b| b.points<=>a.points }
   end
 
   def new

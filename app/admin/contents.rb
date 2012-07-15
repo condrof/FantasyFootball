@@ -1,4 +1,6 @@
 ActiveAdmin.register Content do
+  menu :label => "CMS"
+  
   controller do
     def create
       @content=Content.new(params[:content])

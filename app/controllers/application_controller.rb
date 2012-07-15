@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :layout
   #check_authorization
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -23,5 +24,19 @@ class ApplicationController < ActionController::Base
   def current_admin_user
     return nil if user_signed_in? && !current_user.admin?
     current_user
+  end
+
+protected
+
+  def layout
+    i=0
+    if user_signed_in?
+      current_user.inbox.each do |msg|
+        if !msg.opened
+          i = i + 1
+        end      
+      end
+    end
+    @count = i
   end
 end

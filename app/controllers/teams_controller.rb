@@ -50,4 +50,5 @@ class TeamsController < ApplicationController
     flash[:alert] = "Team deleted!"
     redirect_to user_path(current_user)
   end
+ 
 end

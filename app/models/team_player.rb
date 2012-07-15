@@ -3,5 +3,13 @@ class TeamPlayer < ActiveRecord::Base
   
   belongs_to :player
   belongs_to :team
-  
+
+  validate :count, :on => :create
+
+  def count
+    if self.team.team_players(:reload).size >= 11
+      errors.add(:base, "Exceeded thing limit")
+    end
+  end
+
 end

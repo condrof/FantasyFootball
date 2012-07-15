@@ -6,10 +6,12 @@
 		<th>User</th>
 		<th>Points</th>
 	</tr>
-	<% @league.teams.each do |team| %>
+	<% @teams.each do |team| %>
 	<tr>
 		<td><%= team.teamname %></td>
-		<td><%= team.user.username %></td>
+		<td><% if can? :read, team.user %>
+				<%= link_to team.user.username, user_path(team.user) %>
+			<% end %></td>
 		<td><%= team.points %></td>
 	</tr>
 	<% end %>
