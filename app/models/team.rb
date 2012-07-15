@@ -8,4 +8,12 @@ class Team < ActiveRecord::Base
   has_many :players, :through => :team_players
   
   validates :teamname, :uniqueness => true, :presence => true
+  
+ after_initialize :default_values
+
+  private
+    def default_values
+      self.points ||= 0
+      self.lock ||= "false"
+    end
 end

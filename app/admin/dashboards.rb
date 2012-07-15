@@ -4,6 +4,7 @@ ActiveAdmin::Dashboards.build do
       li link_to "View Site", "/"
       li link_to "Zero Team Points", zeroTeamPoints_admin_teams_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "update Team Points", updateTeamPoints_admin_teams_path, :data => { :confirm => 'Are you Sure?' }
+      li link_to "Lock all teams",  lockAllTeams_admin_teams_path, :data => { :confirm => "You sure"}
       li link_to "Zero Player Points", zeroPlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "update Player Points", updatePlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "Delete Players", deletePlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }

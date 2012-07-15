@@ -20,13 +20,27 @@ ActiveAdmin.register Team do
     end
     redirect_to admin_teams_path, :notice => "TEAM POINTS UPDATED!"
   end
+  
+  collection_action :lockAllTeams, :method => :get do
+    @teams=Team.all
+    @teams.each do |team|
+      team.toggle!(:lock)
+    end
+    redirect_to admin_teams_path, :notice => "ALL TEAMS LOCKED!"
+  end
 
+ member_action :lock, :method => :get do
+    team =Team.find(params[:id])
+    team.toggle!(:lock)
+    redirect_to admin_teams_path, :notice => "#{team.teamname} lock status set to #{team.lock}!"
+  end
     
   index do
     column :teamname do |team| link_to team.teamname, team_path(team) end
     column :user do |team| link_to team.user.username, user_path(team.user) end
     column :points
     column :league
+    column :lock
     
     default_actions
   end

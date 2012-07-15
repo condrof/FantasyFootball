@@ -12,7 +12,7 @@ class Ability
          can :create, Post
          can [:create], League
          can [:read, :update, :destroy], Team do |team|
-           team.try(:user_id) == user.id
+           team.try(:user_id) == user.id && team.lock == false
          end
          can [:update, :destroy], User do |tryuser|
            tryuser == user
