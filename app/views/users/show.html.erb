@@ -10,6 +10,8 @@
 	<% @user.teams.each do |team| %>
 		<% if can? :update, team %>
 			<%= link_to team.teamname, edit_team_path(team) %>
+		<% elsif can? :read, team %>
+			<%= link_to team.teamname, team_path(team) %>
 		<% else %>
 			<%= team.teamname %>
 	 	<% end %>
