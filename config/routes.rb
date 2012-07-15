@@ -1,4 +1,8 @@
 FantasyFootball::Application.routes.draw do
+  get "contents/new"
+
+  get "contents/show"
+
   get "leagues/index"
 
   get "leagues/show"

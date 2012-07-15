@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "user registration" do
   it "allows new users to register with an email address and password" do
     visit new_user_registration_path
+    fill_in "Username",              :with => "username"
     fill_in "Email",                 :with => "foo@example.com"
     fill_in "Password",              :with => "secret"
     fill_in "Password confirmation", :with => "secret"

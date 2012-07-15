@@ -1,6 +1,9 @@
 <% provide(:title, 'Home') %>
 <h1>Fantasy Football</h1>
 <p class="center">
- 	This is my sample Fantasy Football app
+ 	<% @content.each do |content| %>
+ 		<%= content.name %><br />
+ 		<%= content.body %><br />
+ 	<% end %>
 </p>
 <p class="center"><%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %></p>

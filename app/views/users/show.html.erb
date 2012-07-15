@@ -4,6 +4,7 @@
 <% if current_user && !current_user.eql?(@user) %>
 	<p><%= link_to "Send Message to User", new_mailboxes_path(:user_id => @user.id)  %></p>
 <% end %>
+<%= link_to "Create New League", new_league_path %>
 <p>User has <%= @user.teams.count %> teams</p>
 <% if !@user.teams.nil? %>
 	<% @user.teams.each do |team| %>

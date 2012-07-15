@@ -71,7 +71,7 @@ describe "Admins" do
     fill_in "Password", :with => user2.password
     click_button "Sign in"     
     visit team_path(user.teams.first)
-    page.should have_content(user.teams.first.teamname)
+    page.should have_content("Lorem ipsum")
    end
    
    it "should allow admin user to delete all teams" do

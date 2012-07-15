@@ -1,2 +1,8 @@
 <h1>Leagues#new</h1>
-<p>Find me in app/views/leagues/new.html.erb</p>
+	<%= form_for @league do |f| %>
+<div class="field">
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+</div>
+		<%= f.submit "Create", class: "btn btn-large btn-primary" %>
+	<% end %>

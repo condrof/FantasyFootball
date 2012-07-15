@@ -30,8 +30,9 @@ class TeamsController < ApplicationController
   end
 
   def update
-    if @team.update_attributes(params[:team])
-      flash[:notice] = "Team was successfully updated."
+    @league=League.find_by_name(params[:team][:league_id])
+    if @team.update_attributes(:league_id => @league.id)
+      flash[:notice] = "Team was added to #{@league.name}"
       redirect_to edit_team_path(@team)
     end
   end
