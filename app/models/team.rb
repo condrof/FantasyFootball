@@ -5,9 +5,10 @@ class Team < ActiveRecord::Base
   belongs_to :league
  
   has_many :team_players, :dependent => :destroy
-  validates_each :team_player do |tp, attr, value|
-    tp.errors.add attr, "More players on team than allowed" if team.players.count >= 6
+  validates_each :team_players do |tp, attr, value|
+    tp.errors.add attr, "More players on team than allowed" if tp.players.count >= 6
   end
+    
   
   has_many :players, :through => :team_players
   
