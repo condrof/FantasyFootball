@@ -1,7 +1,11 @@
 <% provide(:title, "Team") %>
 <h1><%= @team.teamname %></h1>
 
-<p><%= "#{@team.league.name} | #{@team.points} points" %></p>
+
+<p><% if !@team.league_id.nil? %>
+	<%= "#{@team.league.name} | " %>
+	<% end %>
+	<%= "#{@team.points} points" %></p>
 
 <% @team.players.each do |player| %>
 	<%= "#{player.name} | #{player.club} | #{player.points}" %><br />
