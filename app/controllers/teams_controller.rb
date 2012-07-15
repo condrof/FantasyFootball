@@ -31,10 +31,18 @@ class TeamsController < ApplicationController
 
   def update
     @league=League.find_by_name(params[:team][:league_id])
-    if @team.update_attributes(:league_id => @league.id)
-      flash[:notice] = "Team was added to #{@league.name}"
-      redirect_to edit_team_path(@team)
-    end
+    if !@league.nil?
+      if @team.update_attributes(:league_id => @league.id)
+        flash[:alert] = "Team was added to #{@league.name}"
+        redirect_to edit_team_path(@team)
+      else
+        flash[:alert] = "Error adding team to league. Please try again"
+        redirect_to edit_team_path(@team)
+      end
+   else
+      flash[:alert] = "League does not exist"
+      redirect_to edit_team_path(@team)  
+   end 
   end
   
   def destroy
