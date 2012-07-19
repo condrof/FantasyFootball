@@ -13,25 +13,12 @@ ActiveAdmin.register User do
     redirect_to admin_users_path, :notice => "#{user.email} moderator status set to #{user.moderator}!"
   end
   
-  collection_action :lockAllTeams, :method => :get do
-    @users=User.all
-    @users.each do |user|
-      if !user.lock
-        user.toggle!(:lock)
-      end
-    end
-    redirect_to admin_users_path, :notice => "ALL TEAMS LOCKED!"
+  member_action :toggle_lock, :method => :get do
+    user = User.find(params[:id])
+    user.toggle!(:lock)
+    redirect_to admin_users_path, :notice => "#{user.username} lock status set to #{user.lock}"
   end
   
-  collection_action :unlockAllTeams, :method => :get do
-    @users=User.all
-    @users.each do |user|
-      if user.lock
-        user.toggle!(:lock)
-      end
-    end
-    redirect_to admin_users_path, :notice => "ALL TEAMS UNLOCKED!"
-  end
 
   index do
     column :username do |user| link_to user.username, user_path(user) end
@@ -40,8 +27,6 @@ ActiveAdmin.register User do
     column :moderator
     column :last_sign_in_at
     column :last_sign_in_ip
-    column :created_at
-    column :lock
     column "Toggle Admin", :id do |id|
       link_to "Make Admin", set_admin_admin_user_path(id), data: { confirm: "You sure?" }
     end

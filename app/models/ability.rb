@@ -8,28 +8,33 @@ class Ability
        if user.admin?
          can :manage, :all
        else 
-         can :create, Post
-         can [:create], League
-         can :create, Team do |team|
-           !user.lock
+         if !League.first.lock
+          can :create, League
+          can :create, Team 
          end
+         
          can [:update, :destroy], Team do |team|
-           team.try(:user_id) == user.id && !user.lock
+           team.try(:user_id) == user.id && !League.first.lock
          end
          can [:read], Team do |team|
-           team.try(:user_id) == user.id && user.lock
+           team.try(:user_id) == user.id && League.first.lock
          end
          can [:update, :destroy], User do |tryuser|
            tryuser == user
          end
          can [:create, :destroy], TeamPlayer do |teamplayer|
            teamplayer.team.user == user
+         end     
+         can :create, Post do |post|
+            !user.lock         
          end
          can [:update, :destroy], Post do |post|
-           post.user_id == user.id
+           post.user_id == user.id && !user.lock
          end
-         can [:create], Topic
+         can [:create], Topic do |topic|
+           !user.lock
          end
+       end
          
          if user.moderator?
            can [:create, :update, :destroy], Post

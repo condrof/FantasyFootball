@@ -41,7 +41,9 @@
               <li><%= link_to "Forums", forums_path %></li>
               <li><%= link_to "League", leagues_path %></li>
               <% if user_signed_in? %>
-              	<li><%= link_to "New Team", new_team_path %></li>
+              	<% if can? :create, Team %>
+              		<li><%= link_to "New Team", new_team_path %></li>
+              	<% end %>
               	<li><%= link_to "My Profile", user_path(current_user) %></li>
               	<li><%= link_to "Messages(#{@count})", mailboxes_path %></li>
               	<li><%= link_to "Settings", edit_user_registration_path %></li>
