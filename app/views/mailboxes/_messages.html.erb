@@ -17,16 +17,18 @@
 	        <!-- check opened message first and then set alternate style -->
 	        <%- x = 0 -%>
 			<%- for msg in @messages -%>
-			<tr class="<%= ( (@mailbox != "outbox") ? ( msg.read? ? "" : "unread " ) : "" ) + ( ((x += 1) % 2 == 0) ? "alt" : "") -%>">
-				<td scope="col"><%= check_box_tag "[messages][]", msg.id %></td>
-				<%- unless @mailbox == "outbox" -%>
-	          	<td scope="col"><%= msg.from.try(:username) %></td>
-	            <%- else -%>
-	            <td scope="col"><%= msg.to.username %></td>
-	            <%- end -%>
-	            <td scope="col"><%= link_to msg.subject, show_mailboxes_path(@mailbox,msg) %></td>
-	            <td scope="col" title='<%= msg.created_at.strftime("%a, %b %d, %Y at %I:%M %p") %>'><%= msg.created_at.strftime( ((msg.created_at < 1.days.ago) ? "%b %d, %Y" : "%I:%M %p")) %></td>
-	        </tr>
+				<% if !msg.from.nil? %>
+				<tr class="<%= ( (@mailbox != "outbox") ? ( msg.read? ? "" : "unread " ) : "" ) + ( ((x += 1) % 2 == 0) ? "alt" : "") -%>">
+					<td scope="col"><%= check_box_tag "[messages][]", msg.id %></td>
+					<%- unless @mailbox == "outbox" -%>
+		          	<td scope="col"><%= msg.from.try(:username) || "Deleted User" %></td>
+		            <%- else -%>
+		            <td scope="col"><%= msg.to.username %></td>
+		            <%- end -%>
+		            <td scope="col"><%= link_to msg.subject, show_mailboxes_path(@mailbox,msg) %></td>
+		            <td scope="col" title='<%= msg.created_at.strftime("%a, %b %d, %Y at %I:%M %p") %>'><%= msg.created_at.strftime( ((msg.created_at < 1.days.ago) ? "%b %d, %Y" : "%I:%M %p")) %></td>
+		        </tr>
+		        <% end %>
 			<%- end -%>
 			<tr>
 	            <td colspan="4"><%= will_paginate @messages, :class => "pagination" %></td>
