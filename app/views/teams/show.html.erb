@@ -1,15 +1,35 @@
 <% provide(:title, "Team") %>
 <h1><%= @team.teamname %></h1>
 
+<%- model_class = Player -%>
+<div class="page-header">
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:club) %></th>
+      <th><%= model_class.human_attribute_name(:position) %></th>
+      <th><%= model_class.human_attribute_name(:goals) %></th>
+      <th><%= model_class.human_attribute_name(:games) %></th>
+      <th><%= model_class.human_attribute_name(:points) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @team.players.each do |player| %>
+      <tr>
+        <td><%= link_to player.name, player_path(player) %></td>
+        <td><%= player.club %></td>
+        <td><%= player.position %></td>
+        <td><%= player.goals %></td>
+        <td><%= player.games %></td>
+        <td><%= player.points %></td>
 
-<p><% if !@team.league_id.nil? %>
-	<%= "#{@team.league.name} | " %>
-	<% end %>
-	<%= "#{@team.points} points" %></p>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<% @team.players.each do |player| %>
-	<%= "#{player.name} | #{player.club} | #{player.points}" %><br />
-<% end %>
 
 
 

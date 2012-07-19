@@ -65,6 +65,7 @@ end
   
 describe "user can create teams" do
   it "should allow users to create teams" do
+    FactoryGirl.create(:league)
     user=FactoryGirl.create(:user)
     visit new_user_session_path
     fill_in "Email",    :with => user.email
@@ -80,6 +81,7 @@ end
 describe "Create and delete teams" do
   it "should destroy associated teams" do
     user=FactoryGirl.create(:user)
+    FactoryGirl.create(:league)
     FactoryGirl.create(:team, user_id: user.id)
     teams = user.teams
     user.destroy
@@ -93,6 +95,7 @@ describe "Users can add and remove players to the team" do
   it "should add players to team" do
     player=FactoryGirl.create(:player)
     user=FactoryGirl.create(:user)
+    FactoryGirl.create(:league)
     visit new_user_session_path
     fill_in "Email",    :with => user.email
     fill_in "Password", :with => user.password
@@ -109,6 +112,7 @@ describe "Users can add and remove players to the team" do
   it "should delete players from team" do
     player=FactoryGirl.create(:player)
     user=FactoryGirl.create(:user)
+    FactoryGirl.create(:league)
     visit new_user_session_path
     fill_in "Email",    :with => user.email
     fill_in "Password", :with => user.password
@@ -125,6 +129,7 @@ describe "Users can add and remove players to the team" do
   
   it "should not allow the same player on the team twice" do
     player=FactoryGirl.create(:player)
+    FactoryGirl.create(:league)
     user=FactoryGirl.create(:user)
     visit new_user_session_path
     fill_in "Email",    :with => user.email

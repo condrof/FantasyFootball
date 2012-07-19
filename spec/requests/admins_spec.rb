@@ -56,6 +56,7 @@ describe "Admins" do
    end
    
    it "should allow admin user to read all teams" do
+    FactoryGirl.create(:league)
     user=FactoryGirl.create(:user)
     visit new_user_session_path
     fill_in "Email",    :with => user.email
@@ -75,6 +76,7 @@ describe "Admins" do
    end
    
    it "should allow admin user to delete all teams" do
+    FactoryGirl.create(:league)
     user=FactoryGirl.create(:user)
     visit new_user_session_path
     fill_in "Email",    :with => user.email

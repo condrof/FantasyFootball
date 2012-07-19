@@ -6,6 +6,7 @@ describe "TeamPages" do
     describe "with valid information" do
      it "should create a team" do
       expect {
+        FactoryGirl.create(:league)
         user = FactoryGirl.create(:user)
         visit new_user_session_path
         fill_in "Email",    :with => user.email
@@ -19,6 +20,7 @@ describe "TeamPages" do
       
       it "should delete a team" do
           user = FactoryGirl.create(:user)
+          FactoryGirl.create(:league)
           visit new_user_session_path
           fill_in "Email",    :with => user.email
           fill_in "Password", :with => user.password
@@ -41,6 +43,7 @@ describe "TeamPages" do
       
       it "should not show another users teams" do
         user=FactoryGirl.create(:user)
+        FactoryGirl.create(:league)
         visit new_user_session_path
         fill_in "Email",    :with => user.email
         fill_in "Password", :with => user.password

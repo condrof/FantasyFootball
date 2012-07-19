@@ -48,4 +48,9 @@ FactoryGirl.define do
     topic_id 100
     user
   end
+  
+  factory :league do
+    name "first"
+    lock "false"
+  end
 end
