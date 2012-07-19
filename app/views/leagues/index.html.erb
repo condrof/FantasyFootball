@@ -1,11 +1,14 @@
 <% if current_user %>
 	<h2>Your teams</h2>
-	<table>
+	<table class="table table-striped">
+	  <thead>
 		<tr>
 			<th>Team</th>
 			<th>Points</th>
 			<th>League</th>
 		</tr>
+	  </thead>
+	  <tbody>
 		<% current_user.teams.each do |team| %>
 		<tr>
 			<% if can? :update, team %>
@@ -22,6 +25,7 @@
 				</td>		
 		</tr>	
 		<% end %>
+	  </tbody>
 	</table>
 <% end %>
 
@@ -30,13 +34,16 @@
 <% end %>
 <br /><br />
 <h2>Main League</h2>
-<table>
+<table class="table table-striped">
+  <thead>
 	<tr>
 		<th></th>
 		<th>Team</th>
 		<th>User</th>
 		<th>Points</th>
 	</tr>
+  </thead>
+  <tbody>
 	<% i=1 %>
 	<% @league.each do |team| %>
 	<tr>
@@ -54,4 +61,5 @@
 		<td><%= team.points %></td>
 	</tr>
 	<% end %>
+  </tbody>
 </table>

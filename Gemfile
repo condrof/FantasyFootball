@@ -11,7 +11,7 @@ gem 'heroku'
 gem 'rb-readline'
 gem 'activeadmin', :git => 'https://github.com/gregbell/active_admin.git'
 gem 'sass-rails',   '~> 3.2.3'  #active admin hack for heroku. take out of assets
-gem 'bootstrap-sass', '2.0.0'
+#gem 'bootstrap-sass', '2.0.0'
 gem 'faker'
 gem 'thin'  #heroku server
 gem 'cancan'
@@ -36,6 +36,7 @@ end
 # in production environments by default.
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'twitter-bootstrap-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

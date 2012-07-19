@@ -1,21 +1,41 @@
-<% provide(:title, @user.email ) %>
-<h1><%= @user.username %></h1>
-<p><%= @user.email %></p>
-<% if current_user && !current_user.eql?(@user) %>
-	<p><%= link_to "Send Message to User", new_mailboxes_path(:user_id => @user.id)  %></p>
-<% end %>
-<p>User has <%= @user.teams.count %> teams</p>
-<% if !@user.teams.nil? %>
-	<% @user.teams.each do |team| %>
-		<% if can? :update, team %>
-			<%= link_to team.teamname, edit_team_path(team) %>
-		<% elsif can? :read, team %>
-			<%= link_to team.teamname, team_path(team) %>
-		<% else %>
-			<%= team.teamname %>
-	 	<% end %>
-		<% if can? :update, team %>
-			| <%= link_to "Delete", team, method: :delete, :confirm => "Are you sure?"  %>
-		<% end %><br />
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => @user.username %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong></dt>
+  <dd><%= @user.username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:topics_count) %>:</strong></dt>
+  <dd><%= @user.topics_count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:posts_count) %>:</strong></dt>
+  <dd><%= @user.posts_count %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<% if current_user && !current_user.eql?(@user) %>
+	<strong><%= link_to "Send Message to #{@user.username}", new_mailboxes_path(:user_id => @user.id)  %></strong>
 	<% end %>
-<% end %>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt><strong>Number of Teams</strong></dt>
+	<dd><%= @user.teams.count %></dd>
+	<% if !@user.teams.nil? %>
+		<% @user.teams.each do |team| %>
+			<% if can? :update, team %>
+				<dt><strong><%= link_to team.teamname, edit_team_path(team) %></strong></dt>
+			<% elsif can? :read, team %>
+				<dt><strong><%= link_to team.teamname, team_path(team) %></strong></dt>
+			<% else %>
+				<dt><strong><%= team.teamname %></strong></dt>
+		 	<% end %>
+			<% if can? :update, team %>
+				<dd><%= link_to "Delete", team, method: :delete, :confirm => "Are you sure?"  %></dd>
+			<% end %>
+		<% end %>
+	<% end %>
+</dl>
+
