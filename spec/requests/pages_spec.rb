@@ -25,7 +25,7 @@ describe "Pages" do
   it "should access the players page" do
     FactoryGirl.create(:player)
     visit players_path
-    page.should have_content("All Players")
+    page.should have_content("Players")
   end
   
   it "should access individual players page" do

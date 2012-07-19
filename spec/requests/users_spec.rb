@@ -148,7 +148,7 @@ describe "Users can add and remove players to the team" do
     fill_in "Password", :with => user1.password
     click_button "Sign in"
     visit user_path(user2)
-    click_link "Send Message to User"
+    click_link "Send Message to #{user2.username}"
     fill_in "Subject", :with => "hello"
     fill_in "Message", :with => "hello"
     click_button "Send"

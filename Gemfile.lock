@@ -128,8 +128,6 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
-    kickstrap_rails (0.9.0RC)
-      less-rails
     launchy (2.1.0)
       addressable (~> 2.2.6)
     less (2.2.1)
@@ -271,7 +269,6 @@ DEPENDENCIES
   heroku
   jquery-rails
   kaminari
-  kickstrap_rails
   pg
   rails (= 3.2.6)
   rb-readline
