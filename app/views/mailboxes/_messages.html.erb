@@ -20,7 +20,7 @@
 			<tr class="<%= ( (@mailbox != "outbox") ? ( msg.read? ? "" : "unread " ) : "" ) + ( ((x += 1) % 2 == 0) ? "alt" : "") -%>">
 				<td scope="col"><%= check_box_tag "[messages][]", msg.id %></td>
 				<%- unless @mailbox == "outbox" -%>
-	          	<td scope="col"><%= msg.from.username %></td>
+	          	<td scope="col"><%= msg.from.try(:username) %></td>
 	            <%- else -%>
 	            <td scope="col"><%= msg.to.username %></td>
 	            <%- end -%>
