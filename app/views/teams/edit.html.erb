@@ -23,6 +23,7 @@
 <% end %>
 
 <%= paginate @players %>
+<br /><br /><br />
 <table id="players" class="datatable" >
   <thead>
 	<tr>
@@ -34,19 +35,19 @@
   </thead>
   <tbody>
 	<% @players.each do |player| %>
-		<tr>
-			<td><%= link_to player.name, player_path(player) %></td>
-			<td><%= "#{player.club}" %></td>
-			<td><%= "#{player.points}" %></td>
-			<td><% if !@team.players.include?(player) %>
-					<%= form_for(@relationship) do |f| %>
-		  				<div><%= f.hidden_field :player_id, :value => player.id %>
-		  				<%= f.hidden_field :team_id, :value => @team.id %></div>
-		  				<%= f.submit "Add To Team", class: "btn btn-large btn-primary" %>
-					<% end %>
+		<% if !@team.players.include?(player) %>
+			<tr>
+				<td><%= link_to player.name, player_path(player) %></td>
+				<td><%= "#{player.club}" %></td>
+				<td><%= "#{player.points}" %></td>
+				<td><%= form_for(@relationship) do |f| %>
+	  				<div><%= f.hidden_field :player_id, :value => player.id %>
+	  				<%= f.hidden_field :team_id, :value => @team.id %></div>
+	  				<%= f.submit "Add To Team", class: "btn btn-large btn-primary" %>
 				<% end %>
-			</td>
-		</tr>
+				</td>
+			</tr>
+		<% end %>
 	<% end %>
   </tbody>
 </table>
