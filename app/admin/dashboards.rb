@@ -8,11 +8,25 @@ ActiveAdmin::Dashboards.build do
       li link_to "Unlock all teams",  unlockAllTeams_admin_leagues_path, :data => { :confirm => "You sure"}
       li link_to "Zero Player Points", zeroPlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "update Player Points", updatePlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
-      li link_to "Delete Players", deletePlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }
+      li link_to "Update Back Players", updateBackPlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }    
+      li "Time is #{Time.now}"
+    end
+  end
+  
+  section "Initialise Game", :priority => 2 do
+    ul do
       li link_to "Create Sample Players", samplePlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "Create Back Players", createBackPlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
-      li link_to "Create Forward Players", createForwardPlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
-      li "Time is #{Time.now}"
+      li link_to "Create Forward Players", createForwardPlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }        
+      li link_to "Delete Players", deletePlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }
+    end
+  end
+  
+    section "Recent Users" do
+    ul do
+      User.last(10).collect do |user|
+        li link_to("#{user.username}, signed in #{time_ago_in_words(user.last_sign_in_at)} ago",user_path(user) )
+      end
     end
   end
   # Define your dashboard sections here. Each block will be

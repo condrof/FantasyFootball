@@ -14,6 +14,49 @@ ActiveAdmin.register Player do
     end
     redirect_to admin_players_path, :notice => "PLAYERS DELETED"
   end
+  
+  collection_action :updateBackPlayers, :method => :get do
+    
+    url="http://fantasyfootball.telegraph.co.uk/select-team"
+    website = Nokogiri::HTML(open(url))
+    
+    elements=website.xpath('//*[@id="list-GK"]/table/tr')
+    
+    arr = []
+    elements.each do |row|
+      x=row.xpath('td')
+      name = x[0].text
+      club = x[1].text
+      @player=Player.find_by_name_and_club(name,club)
+      arr=x[7].text.split("|")
+      score=arr[1].split("/")   
+      cards=arr[3].split("/") 
+      clean_sheets = arr[4].split("/")
+        
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1] )
+      @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
+      #@player.penalties_saved = arr[2]     
+    end 
+    
+    elements=website.xpath('//*[@id="list-DEF"]/table/tr')
+    
+    arr = []
+    elements.each do |row|
+      x=row.xpath('td')
+      name = x[0].text
+      club = x[1].text
+      @player=Player.find_by_name_and_club(name,club)
+      arr=x[7].text.split("|")
+      score=arr[1].split("/")   
+      cards=arr[3].split("/") 
+      clean_sheets = arr[4].split("/")
+        
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1] )
+      @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
+      #@player.penalties_saved = arr[2]     
+    end  
+      redirect_to admin_players_path, :notice => "PLAYERS UPDATED"
+  end
 
   collection_action :updatePlayerPoints, :method => :get do
     @players=Player.find(:all)
@@ -28,13 +71,11 @@ ActiveAdmin.register Player do
     url="http://fantasyfootball.telegraph.co.uk/premierleague/select-team"
     website = Nokogiri::HTML(open(url))
     elements=website.xpath('//*[@id="list-GK"]/table/tr')
-    id=0
     elements.each do |row|
           x=row.xpath('td')
           name=x[0].text
           club=x[1].text
-          id+=1
-          Player.create!(:id=>id,:position=>'Goalkeeper', :name=>name,:club=>club)
+          Player.create!(:position=>'Goalkeeper', :name=>name,:club=>club)
     end
        
     elements=website.xpath('//*[@id="list-DEF"]/table/tr')
@@ -42,14 +83,12 @@ ActiveAdmin.register Player do
           x=row.xpath('td')
           name=x[0].text
           club=x[1].text
-          id+=1
-          Player.create!(:id=>id,:position=>'Defender', :name=>name,:club=>club)
+          Player.create!(:position=>'Defender', :name=>name,:club=>club,)
     end
     redirect_to admin_players_path, :notice => "PLAYERS SUCCESSFULLY CREATED!"
   end
  
   collection_action :createForwardPlayer, :method => :get do
-    id=Player.last.id + 1
     url="http://fantasyfootball.telegraph.co.uk/premierleague/select-team"
     website = Nokogiri::HTML(open(url))
     elements=website.xpath('//*[@id="list-MID"]/table/tr')
@@ -57,8 +96,8 @@ ActiveAdmin.register Player do
           x=row.xpath('td')
           name=x[0].text
           club=x[1].text
-          id+=1
-          Player.create!(:id=>id,:position=>'Midfield', :name=>name,:club=>club)
+          #id+=1
+          Player.create!(:position=>'Midfield', :name=>name,:club=>club)
     end
     
     elements=website.xpath('//*[@id="list-STR"]/table/tr')
@@ -95,6 +134,9 @@ ActiveAdmin.register Player do
     column :club
     column :position
     column :goals
+    column :yellows
+    column :reds
+    column :value
     column :points
     default_actions
   end
