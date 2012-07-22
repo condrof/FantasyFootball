@@ -11,7 +11,6 @@ gem 'heroku'
 gem 'rb-readline'
 gem 'activeadmin', :git => 'https://github.com/gregbell/active_admin.git'
 gem 'sass-rails',   '~> 3.2.3'  #active admin hack for heroku. take out of assets
-#gem 'bootstrap-sass', '2.0.0'
 gem 'faker'
 gem 'thin'  #heroku server
 gem 'cancan'
@@ -23,7 +22,8 @@ gem 'gravtastic'
 gem 'redcarpet'
 gem "has_mailbox"
 gem 'will_paginate'
-
+gem 'nokogiri'
+gem 'rest-open-uri'
 
 gem "rspec-rails", :group => [:test, :development]
 group :test do

@@ -10,6 +10,8 @@ ActiveAdmin::Dashboards.build do
       li link_to "update Player Points", updatePlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "Delete Players", deletePlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "Create Sample Players", samplePlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
+      li link_to "Create Back Players", createBackPlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
+      li link_to "Create Forward Players", createForwardPlayer_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li "Time is #{Time.now}"
     end
   end
