@@ -4,21 +4,28 @@
   <thead>
 	<tr>
 		<th>Name</th>
+		<th>Position</th>
+		<th>Last Weeks Points</th>
 		<th>Points</th>
 		<th>Value</th>
 		<th></th>
 	</tr>
   </thead>
   <tbody>
+  	<% val = 0 %>
 	<% @team.players.each do |player| %>
 	<tr>
+		<% val += player.value %>
 		<% @team_player= TeamPlayer.find_by_player_id_and_team_id(player.id, @team.id) %>
 		<td><%= link_to player.name, player_path(player) %></td>
+		<td><%= player.position %></td>
+		<td><%= player.weekly_points %></td>
 		<td><%= player.points %></td>
 		<td><%= player.value %></td>
 		<td><%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?", class: "btn btn-large btn-primary"  %></td>	
 	</tr>	
 	<% end %>
+	<%= val %>
   </tbody>
 </table>
 
@@ -38,7 +45,10 @@
 	<tr>
 		<th>Name</th>
 		<th>Club</th>
+		<th>Position</th>
+		<th>Last Weeks Points</th>
 		<th>Points</th>
+		<th>Value</th>
 		<th></th>
 	</tr>
   </thead>
@@ -48,7 +58,10 @@
 			<tr>
 				<td><%= link_to player.name, player_path(player) %></td>
 				<td><%= "#{player.club}" %></td>
+				<td><%= player.position %></td>
+				<td><%= player.weekly_points %></td>
 				<td><%= "#{player.points}" %></td>
+				<td><%= player.value %></td>
 				<td><%= form_for(@relationship) do |f| %>
 	  				<div><%= f.hidden_field :player_id, :value => player.id %>
 	  				<%= f.hidden_field :team_id, :value => @team.id %></div>

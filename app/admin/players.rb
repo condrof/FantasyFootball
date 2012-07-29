@@ -33,8 +33,10 @@ ActiveAdmin.register Player do
       cards=arr[3].split("/") 
       clean_sheets = arr[2].split("/")
       goals=arr[4]
+      
+      weekly_points = arr[0].to_i - (@player.points || 0)
         
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i  )
+      @player.update_attributes(:weekly_points => weekly_points, :points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i  )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
       #@player.penalties_saved = arr[2]     
     end 
@@ -52,8 +54,9 @@ ActiveAdmin.register Player do
       cards=arr[3].split("/") 
       clean_sheets = arr[4].split("/")
       goals=arr[4]
+      weekly_points = arr[0].to_i - (@player.points || 0)
         
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
+      @player.update_attributes(:weekly_points => weekly_points, :points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
       #@player.penalties_saved = arr[2]     
     end  
@@ -75,8 +78,9 @@ ActiveAdmin.register Player do
       cards=arr[4].split("/") 
       goals=arr[2]
       kcs = arr[3]
-        
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
+      weekly_points = arr[0].to_i - (@player.points || 0)
+       
+      @player.update_attributes(:weekly_points => weekly_points, :points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :key_contributions => kcs  )
     end  
     
@@ -91,9 +95,10 @@ ActiveAdmin.register Player do
       score=arr[1].split("/")   
       cards=arr[4].split("/") 
       goals=arr[2]
-    kcs = arr[3]
+      kcs = arr[3]
+      weekly_points = arr[0].to_i - (@player.points || 0)
         
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
+      @player.update_attributes(:weekly_points => weekly_points, :points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :key_contributions => kcs  )
     end  
        redirect_to admin_players_path, :notice => "PLAYERS UPDATED"
@@ -178,6 +183,7 @@ ActiveAdmin.register Player do
     column :reds
     column :value
     column :points
+    column :weekly_points
     default_actions
   end
 end

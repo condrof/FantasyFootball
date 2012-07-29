@@ -8,7 +8,6 @@ class Team < ActiveRecord::Base
   validates_each :team_players do |tp, attr, value|
     tp.errors.add attr, "More players on team than allowed" if tp.players.count >= 11
   end
-    
   
   has_many :players, :through => :team_players
   
@@ -20,6 +19,5 @@ class Team < ActiveRecord::Base
     def default_values
       self.points ||= 0
       self.lock ||= "false"
-    end
-    
+    end    
 end

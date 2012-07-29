@@ -12,9 +12,9 @@ ActiveAdmin.register Team do
   collection_action :updateTeamPoints, :method => :get do
     @teams=Team.all
     @teams.each do |team|
-      team_points=0
+     team_points=team.points
       team.players.each do |player|
-        team_points+=player.points
+        team_points+=player.weekly_points
       end
       team.update_attributes(:points => team_points)
     end
