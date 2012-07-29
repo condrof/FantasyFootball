@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
   end
   
   def edit
-    @players = Player.search(params[:search]).page(params[:page]).per(10)
+    @players = Player.search(params[:search]).page(params[:page]).per(600)
     @relationship = @team.team_players.build
   end
 

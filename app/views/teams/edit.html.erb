@@ -1,9 +1,26 @@
 <h1><%= @team.teamname %></h1>
 
-<% @team.players.each do |player| %>
-	<% @team_player= TeamPlayer.find_by_player_id_and_team_id(player.id, @team.id) %>
-	<%= player.name %> | <%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?"  %><br />
-<% end %>
+<table class="table table-striped">
+  <thead>
+	<tr>
+		<th>Name</th>
+		<th>Points</th>
+		<th>Value</th>
+		<th></th>
+	</tr>
+  </thead>
+  <tbody>
+	<% @team.players.each do |player| %>
+	<tr>
+		<% @team_player= TeamPlayer.find_by_player_id_and_team_id(player.id, @team.id) %>
+		<td><%= link_to player.name, player_path(player) %></td>
+		<td><%= player.points %></td>
+		<td><%= player.value %></td>
+		<td><%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?", class: "btn btn-large btn-primary"  %></td>	
+	</tr>	
+	<% end %>
+  </tbody>
+</table>
 
 <% if @team.league_id.nil? %>
 	<%= form_for @team do |t| %>
@@ -13,14 +30,6 @@
 	<% end %>
 <% end %>
 
-<%= form_tag players_path, :method => 'get', :id => "players_search" do %>
-  <p>
-  	<%= hidden_field_tag :direction, params[:direction] %>
-	<%= hidden_field_tag :sort, params[:sort] %>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
 
 <%= paginate @players %>
 <br /><br /><br />

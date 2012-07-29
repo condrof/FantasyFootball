@@ -17,7 +17,7 @@ ActiveAdmin.register Player do
   
   collection_action :updateBackPlayers, :method => :get do
     
-    url="http://fantasyfootball.telegraph.co.uk/select-team"
+    url="http://fantasyfootball.telegraph.co.uk/premierleague/select-team"
     website = Nokogiri::HTML(open(url))
     
     elements=website.xpath('//*[@id="list-GK"]/table/tr')
@@ -31,9 +31,10 @@ ActiveAdmin.register Player do
       arr=x[7].text.split("|")
       score=arr[1].split("/")   
       cards=arr[3].split("/") 
-      clean_sheets = arr[4].split("/")
+      clean_sheets = arr[2].split("/")
+      goals=arr[4]
         
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1] )
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i  )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
       #@player.penalties_saved = arr[2]     
     end 
@@ -50,13 +51,54 @@ ActiveAdmin.register Player do
       score=arr[1].split("/")   
       cards=arr[3].split("/") 
       clean_sheets = arr[4].split("/")
+      goals=arr[4]
         
-      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1] )
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
       @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :clean_sheets=> clean_sheets[0], :part_clean_sheets=>clean_sheets[1]  )
       #@player.penalties_saved = arr[2]     
     end  
       redirect_to admin_players_path, :notice => "PLAYERS UPDATED"
   end
+
+  collection_action :updateForwardPlayers, :method => :get do
+   url="http://fantasyfootball.telegraph.co.uk/premierleague/select-team"
+   website = Nokogiri::HTML(open(url))
+   elements=website.xpath('//*[@id="list-MID"]/table/tr')
+   arr = []
+    elements.each do |row|
+      x=row.xpath('td')
+      name = x[0].text
+      club = x[1].text
+      @player=Player.find_by_name_and_club(name,club)
+      arr=x[7].text.split("|")
+      score=arr[1].split("/")   
+      cards=arr[4].split("/") 
+      goals=arr[2]
+      kcs = arr[3]
+        
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
+      @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :key_contributions => kcs  )
+    end  
+    
+   elements=website.xpath('//*[@id="list-STR"]/table/tr')
+   arr = []
+    elements.each do |row|
+      x=row.xpath('td')
+      name = x[0].text
+      club = x[1].text
+      @player=Player.find_by_name_and_club(name,club)
+      arr=x[7].text.split("|")
+      score=arr[1].split("/")   
+      cards=arr[4].split("/") 
+      goals=arr[2]
+    kcs = arr[3]
+        
+      @player.update_attributes(:points => arr[0].to_i, :value=>x[2].text.to_f, :games=>score[0].to_i, :part_appearances=>score[1], :goals=>goals.to_i )
+      @player.update_attributes(:yellows=>cards[0], :reds=>cards[1], :key_contributions => kcs  )
+    end  
+       redirect_to admin_players_path, :notice => "PLAYERS UPDATED"
+  end   
+    
 
   collection_action :updatePlayerPoints, :method => :get do
     @players=Player.find(:all)
@@ -96,7 +138,6 @@ ActiveAdmin.register Player do
           x=row.xpath('td')
           name=x[0].text
           club=x[1].text
-          #id+=1
           Player.create!(:position=>'Midfield', :name=>name,:club=>club)
     end
     
@@ -105,8 +146,7 @@ ActiveAdmin.register Player do
           x=row.xpath('td')
           name=x[0].text
           club=x[1].text
-          id+=1
-          Player.create!(:id=>id,:position=>'Forward', :name=>name,:club=>club)
+          Player.create!(:position=>'Forward', :name=>name,:club=>club)
     end
     redirect_to admin_players_path, :notice => "PLAYERS SUCCESSFULLY CREATED!"
   end

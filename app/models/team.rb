@@ -6,7 +6,7 @@ class Team < ActiveRecord::Base
  
   has_many :team_players, :dependent => :destroy
   validates_each :team_players do |tp, attr, value|
-    tp.errors.add attr, "More players on team than allowed" if tp.players.count >= 6
+    tp.errors.add attr, "More players on team than allowed" if tp.players.count >= 11
   end
     
   
@@ -21,4 +21,5 @@ class Team < ActiveRecord::Base
       self.points ||= 0
       self.lock ||= "false"
     end
+    
 end

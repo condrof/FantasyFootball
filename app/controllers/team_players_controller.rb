@@ -18,7 +18,7 @@ class TeamPlayersController < ApplicationController
     @team=@team_player.team
     @team_player.destroy
     flash[:alert] = "Player deleted from team!"
-    redirect_to edit_team_path(@team)
+    redirect_to :back
   end
 
 protected
@@ -29,7 +29,11 @@ protected
  end
  
  def too_many_players
-    flash[:alert] = "You already have 11 players in your team"
+    if @team.players.count > 11
+      flash[:alert] = "You already have 11 players in your team"
+    else
+      flash[:alert] = "Player can not be added to team"
+    end
     redirect_to :back
   end
 end

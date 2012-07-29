@@ -9,6 +9,7 @@ ActiveAdmin::Dashboards.build do
       li link_to "Zero Player Points", zeroPlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "update Player Points", updatePlayerPoints_admin_players_path, :data => { :confirm => 'Are you Sure?' }
       li link_to "Update Back Players", updateBackPlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }    
+      li link_to "Update Forward Players", updateForwardPlayers_admin_players_path, :data => { :confirm => 'Are you Sure?' }    
       li "Time is #{Time.now}"
     end
   end

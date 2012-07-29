@@ -62,10 +62,12 @@
     </header>
     <div class="container">
     	<% if !notice.nil? %>
-       		<p class="notice"><%= notice %></p>
+       		<p class="alert alert-success"><%= notice %>
+      		<a class="close" data-dismiss="alert">x</a></p>
        	<% end %>
        	<% if !alert.nil? %>
-       		<p class="alert"><%= alert %></p>
+       		<p class="alert alert-error"><%= alert %>
+            <a class="close" data-dismiss="alert">x</a></p>
        	<% end %>
       <%= yield %>
     </div>
