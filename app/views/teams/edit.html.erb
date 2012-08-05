@@ -57,12 +57,12 @@
 <table id="players" class="datatable" >
   <thead>
 	<tr>
-		<th>Name</th>
-		<th>Club</th>
-		<th>Position</th>
-		<th>Last Weeks Points</th>
-		<th>Points</th>
-		<th>Value</th>
+		<th><%= sort_link @q, :name, "Name" %></th>
+		<th><%= sort_link @q, :club, "Club" %></th>
+		<th><%= sort_link @q, :position, "Position" %></th>
+		<th><%= sort_link @q, :last_weeks_points, "Last Weeks Points" %></th>
+		<th><%= sort_link @q, :points, "Points" %></th>
+		<th><%= sort_link @q, :value, "Value" %></th>
 		<th></th>
 	</tr>
   </thead>
