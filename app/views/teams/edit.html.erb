@@ -1,3 +1,4 @@
+<% provide(:title, @team.teamname) %>
 <h1><%= @team.teamname %></h1>
 
 <table class="table table-striped">
@@ -25,7 +26,7 @@
 		<td><%= link_to "Delete", team_player_path(@team_player), method: :delete, :confirm => "Are you sure?", class: "btn btn-large btn-primary"  %></td>	
 	</tr>	
 	<% end %>
-	<%= val %>
+	<%= "Current cost of team #{val} \\ 50m" %>
   </tbody>
 </table>
 
@@ -38,7 +39,20 @@
 <% end %>
 
 
-<%= paginate @players %>
+<br /><br /><br />
+<%= search_form_for @q, url: edit_team_path(@team) do |f| %>
+  <%= f.condition_fields do |c| %>
+    <%= render "condition_fields", f: c %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+  <div class="field">
+    Sort:<br />
+    <%= f.sort_fields do |s| %>
+      <%= s.sort_select %>
+    <% end %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
 <br /><br /><br />
 <table id="players" class="datatable" >
   <thead>

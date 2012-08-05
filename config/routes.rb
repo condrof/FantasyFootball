@@ -16,13 +16,16 @@ FantasyFootball::Application.routes.draw do
     end
     root :to => 'categories#index', :via => :get
   end
-  
+
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :users, :teams, :players, :pages, :team_players, :leagues
+  resources :users, :teams, :pages, :team_players, :leagues
   mailboxes_for :users, :user_object_name => "current_user", :user_display_attribute => "username"
-  
+  resources :players do
+    collection { post :search, to: 'players#index' }
+  end
+
   get "pages/home"
 
   # The priority is based upon order of creation:
@@ -74,11 +77,11 @@ FantasyFootball::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'pages#home'
+  root :to => 'pages#home'
 
-  # See how all your routes lay out with "rake routes"
+# See how all your routes lay out with "rake routes"
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+# This is a legacy wild controller route that's not recommended for RESTful applications.
+# Note: This route will make all actions in every controller accessible via GET requests.
+# match ':controller(/:action(/:id))(.:format)'
 end

@@ -1,32 +1,51 @@
-<%- model_class = Player -%>
+<% provide(:title, 'Players') %>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+	<h1><%= "Players" %></h1>
 </div>
-<%= paginate @players %><br /><br /><br />
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:club) %></th>
-      <th><%= model_class.human_attribute_name(:position) %></th>
-      <th><%= model_class.human_attribute_name(:goals) %></th>
-      <th><%= model_class.human_attribute_name(:games) %></th>
-      <th><%= model_class.human_attribute_name(:points) %></th>
-      <th><%= model_class.human_attribute_name(:value) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @players.each do |player| %>
-      <tr>
-        <td><%= link_to player.name, player_path(player) %></td>
-        <td><%= player.club %></td>
-        <td><%= player.position %></td>
-        <td><%= player.goals %></td>
-        <td><%= player.games %></td>
-        <td><%= player.points %></td>
-        <td><%= player.value %></td>
-      </tr>
+
+<%= search_form_for @q, url: search_players_path, method: :post do |f| %>
+  <%= f.condition_fields do |c| %>
+    <%= render "condition_fields", f: c %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+  <div class="field">
+    Sort:<br />
+    <%= f.sort_fields do |s| %>
+      <%= s.sort_select %><br />
+      <%= s.sort_select %><br />
+      <%= s.sort_select %><br />
+      <%= s.sort_select %><br />
+      <%= s.sort_select %>
     <% end %>
-  </tbody>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th><%= sort_link @q, :name, "Name" %></th>
+			<th><%= sort_link @q, :club, "Club" %></th>
+			<th><%= sort_link @q, :position, "Position" %></th>
+			<th><%= sort_link @q, :goals, "Goals" %></th>
+			<th><%= sort_link @q, :games, "Games" %></th>
+			<th><%= sort_link @q, :points, "Points" %></th>
+			<th><%= sort_link @q, :value, "Value" %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @players.each do |player| %>
+		<tr>
+			<td><%= link_to player.name, player_path(player) %></td>
+			<td><%= player.club %></td>
+			<td><%= player.position %></td>
+			<td><%= player.goals %></td>
+			<td><%= player.games %></td>
+			<td><%= player.points %></td>
+			<td><%= player.value %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
 

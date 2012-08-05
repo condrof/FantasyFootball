@@ -24,7 +24,7 @@ gem "has_mailbox"
 gem 'will_paginate'
 gem 'nokogiri'
 gem 'rest-open-uri'
-
+gem 'ransack'
 gem "rspec-rails", :group => [:test, :development]
 group :test do
   gem "factory_girl_rails"

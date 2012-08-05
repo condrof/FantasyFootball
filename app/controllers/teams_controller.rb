@@ -25,7 +25,10 @@ class TeamsController < ApplicationController
   end
   
   def edit
-    @players = Player.search(params[:search]).page(params[:page]).per(600)
+    @q = Player.search(params[:q])
+    @players = @q.result(:distinct => true)  #.page(params[:page]).per(40)
+    @q.build_condition if @q.conditions.empty?
+    @q.build_sort if @q.sorts.empty?
     @relationship = @team.team_players.build
   end
 
